@@ -1,0 +1,30 @@
+Bao Dur:
+("Huh?" Question )
+	Greeting:
+	("Hello." Greeting, Answer)
+		Answer:
+		("How are you holding?" Question, Status)
+		;
+	;
+	Question:
+	("I don't know.  Sorry." Answer, Empty)
+		Status:
+		("I'm doing okay I guess.  Thinking about Malachor V, and the War." Answer|Malachor V )
+		;
+		Self:
+		("I'm Bao Dur.  I fought in the Mandalorian Wars."Response|Self)
+		;
+	;
+	Answer:
+	("Huh.")
+		Empty:
+		("Well if you don't know..")
+		;
+	;
+	Malachor V:
+	("It was my fault." Malachor V|Self, Angst)
+	;
+	Self:
+	("How interesting of you.")
+	;
+;

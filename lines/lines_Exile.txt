@@ -1,0 +1,33 @@
+Exile:
+( "I have to go now." )
+	Greeting:
+	(".." Greeting, Answer)
+		Answer:
+		("I have a stowaway problem.." Question|Self )
+		;
+	;
+	Question:
+	(".." Answer)
+		Status:
+		("I am feeling Good|Grey|Evil." Answer )
+		;
+		Self:
+		("I'm just me." Self)
+		;
+	;
+	Answer:
+	("Really?" Question)
+		Empty:
+		("I don't believe you." Self)
+		;
+	;
+	Malachor V:
+	("We did what we needed to for the Republic." Malachor V|Republic|Answer|Self)
+	;
+	Self:
+	("I don't really care.")
+		Angst:
+		("You feel bad about it?" Question, Self|Status)
+		;
+	;
+;

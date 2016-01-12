@@ -1,0 +1,33 @@
+Kreia:
+( "Yes?" )
+	Greeting:
+	("You have come to me?" Greeting|Question, Answer)
+		Answer:
+		("You have much to learn." Answer )
+		;
+	;
+	Question:
+	("I choose not to answer." Answer|Self)
+		Status:
+		("Irrelevent." Answer )
+		;
+		Self:
+		("I'm more than you think." Self)
+		;
+	;
+	Answer:
+	("Interesting." Answer)
+		Empty:
+		("I matters not, for I do know." Self)
+		;
+	;
+	Malachor V:
+	("A great thing to have happened.  What more effects will it yield?" Malachor V|Question)
+	;
+	Self:
+	("Of course, I already knew." Self)
+		Angst:
+		("Think not of yourself, fool." Status|Question, Status)
+		;
+	;
+;
