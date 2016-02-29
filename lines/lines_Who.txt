@@ -1,0 +1,9 @@
+Who:
+("Exit")
+	Greeting:
+	("Hello!" Greeting, Answer)
+		Answer:
+		("How are you, [get:last/name]?" Question, Status)
+		;
+	;
+;
