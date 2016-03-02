@@ -74,10 +74,21 @@ namespace CA4
         }
     }
 
+    class IfModule : Module
+    {
+        public IfModule(string expression) : base(Do.IF, expression) { }
+        Module _onTrue;
+        Module _onFalse;
+        public override string Resolve()
+        {
+            return _onTrue.Resolve();
+        }
+    }
     class Module
     {
         public static Func<string, string> GetString;
-        public enum Do { NONE, SAY, GET };
+        /*Replace with Module subclasses to allow for more complex extressions and building a module TREE instead!*/
+        public enum Do { NONE, SAY, GET, IF };
         public Do Activity;
         public string Path;
 
@@ -86,14 +97,19 @@ namespace CA4
             Activity = activity;
             Path = path;
         }
-        public string Resolve()
+        public virtual string Resolve()
         {
             switch (Activity)
             {
-                case Do.GET:
-                    return GetString(Path);
                 case Do.SAY:
                     return Path;
+                case Do.GET:
+                    return GetString(Path);
+                case Do.IF:
+                    var us = this as IfModule;
+                    if( us != null )
+                        { return us.Resolve(); }
+                    return "";
                 default:
                     return "";
             }
