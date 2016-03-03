@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using SpeechLib;
+
 namespace CA4
 {
     class World
@@ -14,11 +16,17 @@ namespace CA4
         const int TOLERANCE = 0;
         static void Main(string[] args)
         {
+            SpVoice voice = new SpVoice();
+            foreach( SpObjectToken sp in voice.GetVoices() )
+            { Console.WriteLine(sp.GetDescription()); }
+
             Stack<Interest> Dialogue = new Stack<Interest>();
             Queue<Voice> talkers = new Queue<Voice>();
 
             talkers.Enqueue(new Voice { Name = "Bao Dur", _root = ChatNode.FromString(File.ReadAllText("lines/lines_Bao-Dur.txt")) });
-            talkers.Enqueue(new Voice { Name = "WHO", _root = ChatNode.FromString(File.ReadAllText("lines/lines_Who.txt")) });
+            talkers.Enqueue(new Voice { Name = "Kreia", _root = ChatNode.FromString(File.ReadAllText("lines/lines_Kreia.txt")) });
+            talkers.Enqueue(new Voice { Name = "Exile", _root = ChatNode.FromString(File.ReadAllText("lines/lines_Exile.txt")) });
+            //talkers.Enqueue(new Voice { Name = "WHO", _root = ChatNode.FromString(File.ReadAllText("lines/lines_Who.txt")) });
             Voice[] ppl = talkers.ToArray();
 
             Random rand = new Random();
@@ -53,9 +61,10 @@ namespace CA4
                 )
             )
             {
-                Console.WriteLine(String.Format("{0}: {1}", response_name, response.Output.Select( l => l.Resolve() ).Aggregate( (a, b) => a + b ) ) );
+                var strng = response.Output.Select(l => l.Resolve()).Aggregate((a, b) => a + b);
+                Console.WriteLine(String.Format("{0}: {1}", response_name, strng) );
+                voice.Speak(strng);
                 Dialogue.Push(response);
-
                 // Oh god, Stop me, please.
                 // Just re-queues the talkers in random order
                 // I really don't need a Queue anymore, I should just access an enumerable in a random fashion
